@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="FantasyFootball.player" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FantasyFootball.player_in_teams_info" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="FantasyFootball.player_in_teams_info_player_id_fk" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FantasyFootball.team" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

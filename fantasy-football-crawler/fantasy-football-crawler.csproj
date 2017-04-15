@@ -103,6 +103,9 @@
     <Compile Include="Models\player_in_teams_info.cs">
       <DependentUpon>FantasyFootball.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\team.cs">
+      <DependentUpon>FantasyFootball.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

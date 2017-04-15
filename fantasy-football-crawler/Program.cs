@@ -4,11 +4,11 @@
     {
         private static void Main(string[] args)
         {
-            int pagecount;
-            if (!int.TryParse(args[0], out pagecount)) return;
-            if (pagecount <= 0) return;
-            var teamIdList = FootballHtmlParser.GetTeamIdList(pagecount);
-            var fc = new FootballCrawler(teamIdList);
+//            int pagecount;
+//            if (!int.TryParse(args[0], out pagecount)) return;
+//            if (pagecount <= 0) return;
+            var teamIdDictionary = FootballHtmlParser.GetTeamIdDictionary(1);
+            var fc = new FootballCrawler(teamIdDictionary);
             fc.DoCrawling();
         }
     }

@@ -9,8 +9,16 @@ namespace fantasy_football_crawler
 {
     public class FootballCrawler
     {
+        private readonly Dictionary<long, int> _teamIdDictionary;
         private readonly List<long> _teamIdList;
         private Dictionary<long, int> _playerInTeamCount;
+
+        public FootballCrawler(Dictionary<long, int> teamIdDictionary)
+        {
+            _teamIdDictionary = teamIdDictionary;
+            _teamIdList = _teamIdDictionary.Keys.ToList();
+            UploadTeamInfoToDatabase();
+        }
 
         public FootballCrawler(List<long> teamIdList)
         {
@@ -23,14 +31,37 @@ namespace fantasy_football_crawler
             var i = 0;
             foreach (var id in _teamIdList)
             {
-                Console.WriteLine(++i);
                 var team = GetSingleTeamPlayers(id);
                 CountPlayersInTeams(team);
             }
-            UploadToDatabase();
+            UploadPlayerInfoToDatabase();
         }
 
-        private void UploadToDatabase()
+
+        private void UploadTeamInfoToDatabase()
+        {
+            using (var context = new FantasyFootballEF())
+            {
+                if (_teamIdDictionary == null || _teamIdDictionary.Count == 0) return;
+                foreach (var team in _teamIdDictionary)
+                {
+                    var teamId = team.Key;
+                    var teamPlace = team.Value;
+                    var selectedTeam = context.team.FirstOrDefault(t => t.id == teamId);
+                    if (selectedTeam == null)
+                        context.team.Add(new team
+                        {
+                            id = teamId,
+                            place = teamPlace
+                        });
+                    else
+                        selectedTeam.place = teamPlace;
+                }
+                context.SaveChanges();
+            }
+        }
+
+        private void UploadPlayerInfoToDatabase()
         {
             using (var context = new FantasyFootballEF())
             {

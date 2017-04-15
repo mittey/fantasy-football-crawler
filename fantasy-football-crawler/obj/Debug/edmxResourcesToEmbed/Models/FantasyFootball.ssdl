@@ -16,6 +16,13 @@
     <Property Name="date" Type="timestamp" Nullable="false" />
     <Property Name="count" Type="int4" Nullable="false" />
   </EntityType>
+  <EntityType Name="team">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int8" Nullable="false" />
+    <Property Name="place" Type="int4" Nullable="false" />
+  </EntityType>
   <Association Name="player_in_teams_info_player_id_fk">
     <End Role="player" Type="Self.player" Multiplicity="1" />
     <End Role="player_in_teams_info" Type="Self.player_in_teams_info" Multiplicity="*" />
@@ -31,6 +38,7 @@
   <EntityContainer Name="FantasyFootballStoreContainer">
     <EntitySet Name="player" EntityType="Self.player" Schema="public" store:Type="Tables" />
     <EntitySet Name="player_in_teams_info" EntityType="Self.player_in_teams_info" Schema="public" store:Type="Tables" />
+    <EntitySet Name="team" EntityType="Self.team" Schema="public" store:Type="Tables" />
     <AssociationSet Name="player_in_teams_info_player_id_fk" Association="Self.player_in_teams_info_player_id_fk">
       <End Role="player" EntitySet="player" />
       <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />

@@ -37,5 +37,13 @@
       <End Role="player" EntitySet="player" />
       <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />
     </AssociationSet>
+    <EntitySet Name="team" EntityType="FantasyFootball.team" />
   </EntityContainer>
+  <EntityType Name="team">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" />
+    <Property Name="place" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

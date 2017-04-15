@@ -27,5 +27,6 @@ namespace fantasy_football_crawler.Models
     
         public virtual DbSet<player> player { get; set; }
         public virtual DbSet<player_in_teams_info> player_in_teams_info { get; set; }
+        public virtual DbSet<team> team { get; set; }
     }
 }

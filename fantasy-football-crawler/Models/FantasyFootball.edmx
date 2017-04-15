@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FantasyFootball.Store" Provider="Npgsql" ProviderManifestToken="9.5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FantasyFootball.Store" Provider="Npgsql" ProviderManifestToken="9.5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="player">
           <Key>
             <PropertyRef Name="id" />
@@ -21,6 +21,13 @@
           <Property Name="date" Type="timestamp" Nullable="false" />
           <Property Name="count" Type="int4" Nullable="false" />
         </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int8" Nullable="false" />
+          <Property Name="place" Type="int4" Nullable="false" />
+        </EntityType>
         <Association Name="player_in_teams_info_player_id_fk">
           <End Role="player" Type="Self.player" Multiplicity="1" />
           <End Role="player_in_teams_info" Type="Self.player_in_teams_info" Multiplicity="*" />
@@ -36,13 +43,13 @@
         <EntityContainer Name="FantasyFootballStoreContainer">
           <EntitySet Name="player" EntityType="Self.player" Schema="public" store:Type="Tables" />
           <EntitySet Name="player_in_teams_info" EntityType="Self.player_in_teams_info" Schema="public" store:Type="Tables" />
+          <EntitySet Name="team" EntityType="Self.team" Schema="public" store:Type="Tables" />
           <AssociationSet Name="player_in_teams_info_player_id_fk" Association="Self.player_in_teams_info_player_id_fk">
             <End Role="player" EntitySet="player" />
             <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FantasyFootball" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -83,7 +90,15 @@
             <End Role="player" EntitySet="player" />
             <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />
           </AssociationSet>
+          <EntitySet Name="team" EntityType="FantasyFootball.team" />
         </EntityContainer>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="place" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -105,6 +120,14 @@
                 <ScalarProperty Name="player_id" ColumnName="player_id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="team">
+            <EntityTypeMapping TypeName="FantasyFootball.team">
+              <MappingFragment StoreEntitySet="team">
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
