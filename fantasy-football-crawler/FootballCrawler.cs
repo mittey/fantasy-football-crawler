@@ -49,13 +49,20 @@ namespace fantasy_football_crawler
                     var teamPlace = team.Value;
                     var selectedTeam = context.team.FirstOrDefault(t => t.id == teamId);
                     if (selectedTeam == null)
+                    {
                         context.team.Add(new team
                         {
                             id = teamId,
                             place = teamPlace
                         });
+                    }
                     else
+                    {
+                        var previousTeamWithThisPlace = context.team.Where(p => p.place == teamPlace).Select(p => p);
+                        foreach (var prevTeam in previousTeamWithThisPlace)
+                            prevTeam.place = 0;
                         selectedTeam.place = teamPlace;
+                    }
                 }
                 context.SaveChanges();
             }
