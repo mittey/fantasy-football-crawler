@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FantasyFootball.Store" Provider="Npgsql" ProviderManifestToken="9.5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="player">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int8" Nullable="false" />
+    <Property Name="name" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="player_in_teams_info">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="player_id" Type="int8" Nullable="false" />
+    <Property Name="date" Type="timestamp" Nullable="false" />
+    <Property Name="count" Type="int4" Nullable="false" />
+  </EntityType>
+  <Association Name="player_in_teams_info_player_id_fk">
+    <End Role="player" Type="Self.player" Multiplicity="1" />
+    <End Role="player_in_teams_info" Type="Self.player_in_teams_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="player">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="player_in_teams_info">
+        <PropertyRef Name="player_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FantasyFootballStoreContainer">
+    <EntitySet Name="player" EntityType="Self.player" Schema="public" store:Type="Tables" />
+    <EntitySet Name="player_in_teams_info" EntityType="Self.player_in_teams_info" Schema="public" store:Type="Tables" />
+    <AssociationSet Name="player_in_teams_info_player_id_fk" Association="Self.player_in_teams_info_player_id_fk">
+      <End Role="player" EntitySet="player" />
+      <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

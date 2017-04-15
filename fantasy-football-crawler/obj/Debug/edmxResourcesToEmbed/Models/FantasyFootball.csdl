@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FantasyFootball" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="player">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="player_in_teams_info" Relationship="Self.player_in_teams_info_player_id_fk" FromRole="player" ToRole="player_in_teams_info" />
+  </EntityType>
+  <EntityType Name="player_in_teams_info">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="player_id" Type="Int64" Nullable="false" />
+    <Property Name="date" Type="DateTime" Precision="6" Nullable="false" />
+    <Property Name="count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="player" Relationship="Self.player_in_teams_info_player_id_fk" FromRole="player_in_teams_info" ToRole="player" />
+  </EntityType>
+  <Association Name="player_in_teams_info_player_id_fk">
+    <End Role="player" Type="Self.player" Multiplicity="1" />
+    <End Role="player_in_teams_info" Type="Self.player_in_teams_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="player">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="player_in_teams_info">
+        <PropertyRef Name="player_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FantasyFootballEF" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="player" EntityType="Self.player" />
+    <EntitySet Name="player_in_teams_info" EntityType="Self.player_in_teams_info" />
+    <AssociationSet Name="player_in_teams_info_player_id_fk" Association="Self.player_in_teams_info_player_id_fk">
+      <End Role="player" EntitySet="player" />
+      <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
