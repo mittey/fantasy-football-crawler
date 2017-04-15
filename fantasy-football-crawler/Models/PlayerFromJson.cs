@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace fantasy_football_crawler.Models
+﻿namespace fantasy_football_crawler.Models
 {
-    class PlayerFromJson
+    internal class PlayerFromJson
     {
         public string Name { get; set; }
 

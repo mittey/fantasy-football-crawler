@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FantasyFootball.Store" Provider="Npgsql" ProviderManifestToken="9.5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FantasyFootball.Store" Provider="Npgsql" ProviderManifestToken="9.5.6" Alias="Self"
+              xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="player">
           <Key>
             <PropertyRef Name="id" />
@@ -42,24 +46,30 @@
         </Association>
         <EntityContainer Name="FantasyFootballStoreContainer">
           <EntitySet Name="player" EntityType="Self.player" Schema="public" store:Type="Tables" />
-          <EntitySet Name="player_in_teams_info" EntityType="Self.player_in_teams_info" Schema="public" store:Type="Tables" />
+          <EntitySet Name="player_in_teams_info" EntityType="Self.player_in_teams_info" Schema="public"
+                     store:Type="Tables" />
           <EntitySet Name="team" EntityType="Self.team" Schema="public" store:Type="Tables" />
           <AssociationSet Name="player_in_teams_info_player_id_fk" Association="Self.player_in_teams_info_player_id_fk">
             <End Role="player" EntitySet="player" />
             <End Role="player_in_teams_info" EntitySet="player_in_teams_info" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FantasyFootball" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="FantasyFootball" Alias="Self" annotation:UseStrongSpatialTypes="false"
+              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="player">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="player_in_teams_info" Relationship="Self.player_in_teams_info_player_id_fk" FromRole="player" ToRole="player_in_teams_info" />
+          <NavigationProperty Name="player_in_teams_info" Relationship="Self.player_in_teams_info_player_id_fk"
+                              FromRole="player" ToRole="player_in_teams_info" />
         </EntityType>
         <EntityType Name="player_in_teams_info">
           <Key>
@@ -69,7 +79,8 @@
           <Property Name="player_id" Type="Int64" Nullable="false" />
           <Property Name="date" Type="DateTime" Precision="6" Nullable="false" />
           <Property Name="count" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="player" Relationship="Self.player_in_teams_info_player_id_fk" FromRole="player_in_teams_info" ToRole="player" />
+          <NavigationProperty Name="player" Relationship="Self.player_in_teams_info_player_id_fk"
+                              FromRole="player_in_teams_info" ToRole="player" />
         </EntityType>
         <Association Name="player_in_teams_info_player_id_fk">
           <End Role="player" Type="Self.player" Multiplicity="1" />
@@ -104,7 +115,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FantasyFootballStoreContainer" CdmEntityContainer="FantasyFootballEF">
+        <EntityContainerMapping StorageEntityContainer="FantasyFootballStoreContainer"
+                                CdmEntityContainer="FantasyFootballEF">
           <EntitySetMapping Name="player">
             <EntityTypeMapping TypeName="FantasyFootball.player">
               <MappingFragment StoreEntitySet="player">
