@@ -11,17 +11,13 @@ namespace fantasy_football_crawler
         public static List<long> GetTeamIdList(int pagesToParseCount)
         {
             const string baseUrl = "https://www.sports.ru/fantasy/football/tournament/ratings/leaders/52.html";
-            Console.WriteLine("Started HTML parsing!");
             var resultList = GetTeamIdListForSinglePage(baseUrl);
-            Console.WriteLine("Page 1 done...");
             if (pagesToParseCount <= 1) return resultList;
             for (var pageNumber = 2; pageNumber <= pagesToParseCount; pageNumber++)
             {
                 var nextPageUrl = baseUrl + "?p=" + pageNumber;
                 resultList.AddRange(GetTeamIdListForSinglePage(nextPageUrl));
-                Console.WriteLine($"Page {pageNumber} done...");
             }
-            Console.WriteLine("ALL DONE!");
             return resultList;
         }
 
